@@ -1,0 +1,8 @@
+.Mainbody{
+    display: flex;
+    min-height: 100svh;
+    min-width: 100vw;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+}

@@ -1,0 +1,25 @@
+svg {
+    width: 100%; /* Set the width to 100% of its container */
+    height: 100%; /* Maintain aspect ratio */
+    max-width: 70px;
+    max-height: 70px;
+  }
+.mainTabs{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    width: 100vw;
+}
+.mainTabs li {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.containerMain{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}

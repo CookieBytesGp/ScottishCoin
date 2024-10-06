@@ -1,0 +1,38 @@
+.containerHead{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+    line-height: 3.5svh;
+    padding: 4vw 0 0 0;
+    width: 100%;
+}
+.topPart , .bottompart , .profile , .menu , .score{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+}
+svg {
+    width: 100%; /* Set the width to 100% of its container */
+    height: 100%; /* Maintain aspect ratio */
+  }
+.profile , .menu , .score{
+    background: rgba(10, 65, 83, 0.47);
+    border-radius: 16px;
+    padding: 3vw;
+}
+.profile {
+width: 50%;
+justify-content: space-between;
+}
+.topPart {
+    width: 100%;   
+}
+.profile svg{
+    width: auto;
+}
+.menu{
+    padding: 2vw;
+}
