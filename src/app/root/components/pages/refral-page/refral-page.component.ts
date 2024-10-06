@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TelegramWebappService } from '@zakarliuka/ng-telegram-webapp';
 import { ReferalService } from '../../../services/referal.service';
+import { DefaultNames } from '../../../models/defultNames';
 
 @Component({
   selector: 'app-refral-page',
@@ -13,7 +14,7 @@ import { ReferalService } from '../../../services/referal.service';
 export class RefralPageComponent {
  
   referralCode: string = "";
-  refralName : string = "refralCode";
+  AppNames : DefaultNames = new DefaultNames();
   
   constructor(private referalService: ReferalService, private telService: TelegramWebappService) { }
   
@@ -25,7 +26,7 @@ export class RefralPageComponent {
   ngOnInit() {
     // const initData = this.referalService.getInitData();
     
-    this.telService.webApp.CloudStorage.getItem(this.refralName, (e, value) => {
+    this.telService.webApp.CloudStorage.getItem(this.AppNames.profile.refralCode, (e, value) => {
       
       if (e != null) {
         console.log(e)
@@ -36,7 +37,7 @@ export class RefralPageComponent {
           this.referralCode = value;
         }else{
           this.generateReferralLinkString();
-          this.telService.webApp.CloudStorage.setItem(this.refralName, this.referralCode, (e: string | null, bool: boolean) => {
+          this.telService.webApp.CloudStorage.setItem(this.AppNames.profile.refralCode, this.referralCode, (e: string | null, bool: boolean) => {
           
           if (e != null) {
             

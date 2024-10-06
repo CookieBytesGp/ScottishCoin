@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TelegramWebappService } from '@zakarliuka/ng-telegram-webapp';
+import { BigDataModel } from '../../../models/bigDataModel';
 
 @Component({
   selector: 'Myheader',
@@ -10,9 +12,15 @@ import { TelegramWebappService } from '@zakarliuka/ng-telegram-webapp';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  constructor(private telServise: TelegramWebappService ) { };
+  bigDataInit : BigDataModel = new BigDataModel();
+  constructor(private telServise: TelegramWebappService , private router : Router) {
+    const navigation = this.router.getCurrentNavigation();
+    this.bigDataInit = navigation?.extras?.state?.['BigData']
+    console.log(navigation?.extras?.state?.['BigData'] , navigation)
+   };
 
-  Scores : string[] = ["score" ] ;
+  
+  Scores : string[] = ["score"] ;
   score : any ; 
   firstName: any;
   lastName: any;
@@ -20,6 +28,7 @@ export class HeaderComponent {
   question1 : any ;
 
   ngOnInit() {
+    console.log("this is log of yeaar" , this.bigDataInit)
     this.firstName = this.telServise.initDataUnsafe.user?.first_name;
     this.lastName = this.telServise.initDataUnsafe.user?.last_name;
     this.question1 = this.telServise.initDataUnsafe.user?.id;

@@ -5,5 +5,5 @@ import { ScoreModel } from "./ScoreModel"
 export class BigDataModel {
     profile :ProfileModel = new ProfileModel();
     score : ScoreModel = new ScoreModel();
-    curencies: CurrenciesModel = new CurrenciesModel();
+    currencies: CurrenciesModel = new CurrenciesModel();
 }

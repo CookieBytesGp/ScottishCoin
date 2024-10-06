@@ -1,0 +1,15 @@
+.progrresBar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 5px;
+    display: flex;
+
+}
+
+.progress{
+    height: 5px;
+    background: linear-gradient(101.33deg, rgba(73, 102, 255, 0.35) -1.74%, rgb(47, 2, 95) 100.61%);
+    transition: all 1s linear;
+}

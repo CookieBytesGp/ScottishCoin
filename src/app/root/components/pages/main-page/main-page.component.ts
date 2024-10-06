@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TelegramWebappService } from '@zakarliuka/ng-telegram-webapp';
 import { HeaderComponent } from '../../shared/header/header.component';
-
+import { DefaultNames } from '../../../models/defultNames';
 @Component({
   selector: 'app-main-page',
   standalone: true,
@@ -12,7 +12,8 @@ import { HeaderComponent } from '../../shared/header/header.component';
 })
 export class MainPageComponent {
   constructor(private telServise: TelegramWebappService ) { }
-  Scores : string[] = ["score" ] ;
+  Appnames : DefaultNames = new DefaultNames();
+  // Scores : string[] = ["score" ] ;
   score : any ; 
   // Unscurescore: any = this.telServise.webApp.CloudStorage.getItem(this.Scores[0] , (e , value) => {
   //   if(e){
@@ -36,7 +37,7 @@ export class MainPageComponent {
     this.firstName = this.telServise.initDataUnsafe.user?.first_name;
     this.lastName = this.telServise.initDataUnsafe.user?.last_name;
     this.question1 = this.telServise.initDataUnsafe.user?.id;
-    this.telServise.webApp.CloudStorage.getItem(this.Scores[0] , (e , value) => {
+    this.telServise.webApp.CloudStorage.getItem(this.Appnames.scores.Score , (e , value) => {
       if(e != null){
         console.log(e)
       }else{
@@ -47,7 +48,7 @@ export class MainPageComponent {
     } )
     setTimeout(() => {
       
-      this.telServise.webApp.CloudStorage.setItem(this.Scores[0] , (this.score).toString() , (e : string | null , bool : boolean ) => {
+      this.telServise.webApp.CloudStorage.setItem(this.Appnames.scores.Score , (this.score).toString() , (e : string | null , bool : boolean ) => {
         if(e != null){
           console.log(e)
         }else{
@@ -61,7 +62,7 @@ export class MainPageComponent {
   }
   TopScore(){
     this.score = this.score + 1;
-    this.telServise.webApp.CloudStorage.setItem(this.Scores[0] , (this.score).toString() , (e : string | null , bool : boolean ) => {
+    this.telServise.webApp.CloudStorage.setItem(this.Appnames.scores.Score , (this.score).toString() , (e : string | null , bool : boolean ) => {
       if(e != null){
         console.log(e)
       }else{
