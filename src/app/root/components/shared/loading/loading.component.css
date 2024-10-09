@@ -11,5 +11,5 @@
 .progress{
     height: 5px;
     background: linear-gradient(101.33deg, rgba(73, 102, 255, 0.35) -1.74%, rgb(47, 2, 95) 100.61%);
-    transition: all 1s linear;
+    transition: all .4s linear;
 }

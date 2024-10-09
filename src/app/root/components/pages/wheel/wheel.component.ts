@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { BigDataModel } from '../../../models/bigDataModel';
+import { ActivatedRoute } from '@angular/router';
 declare var Winwheel: any;
 declare var gsap: any;
 @Component({
@@ -10,9 +12,18 @@ declare var gsap: any;
 })
 export class WheelComponent {
   private wheel: any;
-
+  bigDataInit : BigDataModel = new BigDataModel();
+/**
+ *
+ */
+constructor(private route : ActivatedRoute) {
+  
+}
   ngOnInit(): void {
     this.initializeWheel();
+    const state = history.state;
+          console.log(state,this.bigDataInit);
+          this.bigDataInit = state;
   }
 
   initializeWheel(): void {
