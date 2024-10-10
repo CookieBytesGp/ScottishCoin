@@ -22,15 +22,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(private telServise: TelegramWebappService  , private router : Router , private dataService : BigDatainitService) {
   }
   ngAfterViewInit(): void {
-    this.dataService.setData(this.bigDataInit)
+    // this.dataService.setData(this.bigDataInit)
 
-          this.dataService.getData().subscribe((value) => {console.log(" app after view" , value) })
+    //       this.dataService.getData().subscribe((value) => {console.log(" app after view" , value) })
     // throw new Error('Method not implemented.');
   }
   ngDoCheck() {
-    this.dataService.getData().subscribe((value) => {console.log("do check app" , value) })
-    this.dataService.setData(this.bigDataInit)
-    this.dataService.getData().subscribe((value) => {console.log("do check app" , value) })
+    // this.dataService.getData().subscribe((value) => {console.log("do check app" , value) })
+    // this.dataService.setData(this.bigDataInit)
+    // this.dataService.getData().subscribe((value) => {console.log("do check app" , value) })
 
   }
   bigDataInit: BigDataModel = new BigDataModel();
@@ -45,8 +45,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.telServise.ready()
     this.telServise.expand();
     try {
-      const result = await this.gatherer(this.bigDataInit);
-      if(result){
+      // const result = await this.gatherer(this.bigDataInit);
+      // if(result){
         // this.setSharedObject(this.bigDataInit);
         // this.bigdataService.sharedData$().subscribe(bigDataPack => {
           //   this.bigDataInit = bigDataPack;
@@ -55,14 +55,20 @@ export class AppComponent implements OnInit, AfterViewInit {
           // });
           this.loading = false;
           this.mainapp = true;
+          try {
+            this.bigDataInit = await this.dataService.getData();
+            console.log('Gathering completed:' ,this.bigDataInit );
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        
           // Now myBigData is populated with the gathered information
-          console.log('Gathering completed:' ,this.bigDataInit );
-          this.dataService.setData(this.bigDataInit)
+          // this.dataService.setData(this.bigDataInit)
 
-          this.dataService.getData().subscribe((value) => {console.log("before navigation app" , value) })
+          // this.dataService.getData().subscribe((value) => {console.log("before navigation app" , value) })
           // this.router.navigateByUrl('/', { state: this.bigDataInit });
-          this.router.navigate(['/']);
-      }
+          // this.router.navigate(['/']);
+      // }
     } catch (error) {
       console.error('Error while gathering data:', error);
       // Handle the error (e.g., show an error message to the user)
@@ -153,82 +159,82 @@ export class AppComponent implements OnInit, AfterViewInit {
   // }
 
 
-  async gatherer(bigDataInit: BigDataModel  ): Promise< BigDataModel> {
+  // async gatherer(bigDataInit: BigDataModel  ): Promise< BigDataModel> {
     
-    try {
+  //   try {
 
 
 
-      // Populate profile information
-      bigDataInit.profile.firstName = this.telServise.webApp.initDataUnsafe.user?.first_name;
-      bigDataInit.profile.lastName = this.telServise.webApp.initDataUnsafe.user?.last_name;
-      bigDataInit.profile.profilePicture = this.telServise.webApp.initDataUnsafe.user?.photo_url;
-      bigDataInit.profile.username = this.telServise.webApp.initDataUnsafe.user?.username;
-      // gatheringCount++;
-      this.progressbar++;
+  //     // Populate profile information
+  //     bigDataInit.profile.firstName = this.telServise.webApp.initDataUnsafe.user?.first_name;
+  //     bigDataInit.profile.lastName = this.telServise.webApp.initDataUnsafe.user?.last_name;
+  //     bigDataInit.profile.profilePicture = this.telServise.webApp.initDataUnsafe.user?.photo_url;
+  //     bigDataInit.profile.username = this.telServise.webApp.initDataUnsafe.user?.username;
+  //     // gatheringCount++;
+  //     this.progressbar++;
       
     
-      // Retrieve referral code from CloudStorage
-      const referralCode = await this.getCloudStorageItem(this.AppNames.profile.refralCode);
-      bigDataInit.profile.refralCode = referralCode;
-      // gatheringCount++;
-      this.progressbar++;
+  //     // Retrieve referral code from CloudStorage
+  //     const referralCode = await this.getCloudStorageItem(this.AppNames.profile.refralCode);
+  //     bigDataInit.profile.refralCode = referralCode;
+  //     // gatheringCount++;
+  //     this.progressbar++;
     
 
-      // Retrieve scores
-      bigDataInit.score.profitCollectCoin = await this.getCloudStorageItem(this.AppNames.scores.Score);
-      if(bigDataInit.score.profitCollectCoin == "NaN"){
-        this.telServise.webApp.CloudStorage.setItem(this.AppNames.scores.Score , "0" , (e : string | null , bool : boolean ) => {
-          if(e != null){
-            console.log(e)
-          }else{
-            console.log("Score is Succsessfully : " , bool);
-          }
-         });
-      bigDataInit.score.profitCollectCoin = await this.getCloudStorageItem(this.AppNames.scores.Score);
+  //     // Retrieve scores
+  //     bigDataInit.score.profitCollectCoin = await this.getCloudStorageItem(this.AppNames.scores.Score);
+  //     if(bigDataInit.score.profitCollectCoin == "NaN"){
+  //       this.telServise.webApp.CloudStorage.setItem(this.AppNames.scores.Score , "0" , (e : string | null , bool : boolean ) => {
+  //         if(e != null){
+  //           console.log(e)
+  //         }else{
+  //           console.log("Score is Succsessfully : " , bool);
+  //         }
+  //        });
+  //     bigDataInit.score.profitCollectCoin = await this.getCloudStorageItem(this.AppNames.scores.Score);
 
-      }
-      // gatheringCount++;
-      this.progressbar++;
+  //     }
+  //     // gatheringCount++;
+  //     this.progressbar++;
       
 
-      bigDataInit.score.profit = await this.getCloudStorageItem(this.AppNames.scores.profit);
-      // gatheringCount++;
-      this.progressbar++;
+  //     bigDataInit.score.profit = await this.getCloudStorageItem(this.AppNames.scores.profit);
+  //     // gatheringCount++;
+  //     this.progressbar++;
       
 
-      bigDataInit.score.dateStartCollect = await this.getCloudStorageItem(this.AppNames.scores.dateStartCollect);
-      // gatheringCount++;
-      this.progressbar++;
+  //     bigDataInit.score.dateStartCollect = await this.getCloudStorageItem(this.AppNames.scores.dateStartCollect);
+  //     // gatheringCount++;
+  //     this.progressbar++;
       
 
-      // Retrieve currency information
-      bigDataInit.currencies.coins = await this.getCloudStorageItem(this.AppNames.currencies.coins);
+  //     // Retrieve currency information
+  //     bigDataInit.currencies.coins = await this.getCloudStorageItem(this.AppNames.currencies.coins);
 
-      // gatheringCount++;
-      this.progressbar++;
+  //     // gatheringCount++;
+  //     this.progressbar++;
       
       
-      return  bigDataInit;
-    } catch (error) {
-      console.error('Error while gathering data:', error);
-      // Handle any errors here (e.g., logging, error messages, etc.)
-      throw error;
-    }
-  }
+  //     return  bigDataInit;
+  //   } catch (error) {
+  //     console.error('Error while gathering data:', error);
+  //     // Handle any errors here (e.g., logging, error messages, etc.)
+  //     throw error;
+  //   }
+  // }
 
-  async getCloudStorageItem(itemName: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.telServise.webApp.CloudStorage.getItem(itemName, (error, value) => {
-        if (error) {
-          console.error(`Error retrieving ${itemName}:`, error);
-          reject(error);
-        } else {
-          resolve(value);
-        }
-      });
-    });
-  }
+  // async getCloudStorageItem(itemName: string): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     this.telServise.webApp.CloudStorage.getItem(itemName, (error, value) => {
+  //       if (error) {
+  //         console.error(`Error retrieving ${itemName}:`, error);
+  //         reject(error);
+  //       } else {
+  //         resolve(value);
+  //       }
+  //     });
+  //   });
+  // }
 
  
 }

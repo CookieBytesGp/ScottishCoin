@@ -38,8 +38,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       const state = history.state;
       console.log(state,this.bigDataInit);
       this.bigDataInit = state;
-      this.bigDataService.setData(this.bigDataInit);
-      this.bigDataService.getData().subscribe((value) => {console.log("its data get from service header", value,this.bigDataInit) ;  })
+      // this.bigDataService.setData(this.bigDataInit);
+      // this.bigDataService.getData().subscribe((value) => {console.log("its data get from service header", value,this.bigDataInit) ;  })
         
         this.firstName = this.bigDataInit.profile.firstName;
         this.lastName = this.bigDataInit.profile.lastName;
@@ -79,12 +79,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
           // }, 1000);
         }
         ngAfterViewInit(): void {
-         this.bigDataService.getData().subscribe((value) => {console.log("its data get from service header", value,this.bigDataInit) ;  })
+        //  this.bigDataService.getData().subscribe((value) => {console.log("its data get from service header", value,this.bigDataInit) ;  })
          
          // throw new Error('Method not implemented.');
        };
         ngDoCheck() {
-          this.bigDataService.getData().subscribe((value) => {console.log("its data get from service header", value,this.bigDataInit) ;  })
+          // this.bigDataService.getData().subscribe((value) => {console.log("its data get from service header", value,this.bigDataInit) ;  })
           console.log("its data get from service header",this.bigDataInit)
           // this.bigDataService.updateSharedData(this.bigDataInit);
           

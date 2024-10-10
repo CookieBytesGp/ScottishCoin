@@ -19,9 +19,9 @@ export class BigDatainitService implements Resolve<BigDataModel> {
     try {
       const result = await this.gatherer(this.bigDataInit);
       if (result) {
-        this.dataModel = this.bigDataInit;
+        this.setData(result);
       }
-      return await firstValueFrom(this.getData()); // Ensure you return the data model
+      return await this.getData(); // Ensure you return the data model
     } catch (error) {
       console.error('Error while gathering data:', error);
       // Handle the error (e.g., show an error message to the user)
@@ -101,11 +101,16 @@ export class BigDatainitService implements Resolve<BigDataModel> {
   }
 
  
-  setData(Value: BigDataModel) {
+  async setData(Value: BigDataModel) {
     this.data.next(Value);
   }
-  getData() : Observable<BigDataModel> {
-    return this.data.asObservable();
+  async getData() : Promise<BigDataModel> {
+    const result = await this.gatherer(this.bigDataInit);
+    if (result) {
+      this.setData(result);
+      return firstValueFrom(this.data.asObservable()); // Convert Observable to Promise
+    }
+    throw new Error('Failed to gather data');
   }
   // private bigDataInit! : BigDataModel ;
   // private sharedObject = new BehaviorSubject<BigDataModel>(this.bigDataInit);

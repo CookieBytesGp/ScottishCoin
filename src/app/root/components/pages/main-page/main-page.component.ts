@@ -5,16 +5,17 @@ import { DefaultNames } from '../../../models/defultNames';
 import { BigDatainitService } from '../../../services/DataServises/big-datainit.service';
 import { BigDataModel } from '../../../models/bigDataModel';
 import { ActivatedRoute } from '@angular/router';
+import { DeliveryServiceService } from '../../../services/DataServises/delivery-service.service';
 @Component({
   selector: 'app-main-page',
   standalone: true,
   imports: [HeaderComponent],
-  providers:[TelegramWebappService , BigDatainitService],
+  providers:[TelegramWebappService , BigDatainitService , DeliveryServiceService],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css'
 })
 export class MainPageComponent implements OnInit, AfterViewInit {
-  constructor(private telServise: TelegramWebappService  , private route : ActivatedRoute) { }
+  constructor(private telServise: TelegramWebappService  , private route : ActivatedRoute , private delvServ : DeliveryServiceService) { }
   Appnames : DefaultNames = new DefaultNames();
   bigDataInit : BigDataModel = new BigDataModel();
   bigDataService = inject(BigDatainitService);
@@ -41,7 +42,7 @@ export class MainPageComponent implements OnInit, AfterViewInit {
           const state = history.state;
           console.log(state,this.bigDataInit);
           this.bigDataInit = state;
-      this.bigDataService.getData().subscribe((value) => {console.log("its data get from service main", value,this.bigDataInit) ;  })
+      // this.bigDataService.getData().subscribe((value) => {console.log("its data get from service main", value,this.bigDataInit) ;  })
 
           this.firstName = this.bigDataInit.profile.firstName;
           this.lastName = this.bigDataInit.profile.lastName;
@@ -67,12 +68,12 @@ export class MainPageComponent implements OnInit, AfterViewInit {
       // }, 1000);
     }
     ngAfterViewInit(): void {
-      this.bigDataService.getData().subscribe((value) => {console.log("its data get from service main", value,this.bigDataInit) ;  })
+      // this.bigDataService.getData().subscribe((value) => {console.log("its data get from service main", value,this.bigDataInit) ;  })
       
       // throw new Error('Method not implemented.');
     };
      ngDoCheck() {
-       this.bigDataService.getData().subscribe((value) => {console.log("its data get from service main", value,this.bigDataInit) ;  })
+      //  this.bigDataService.getData().subscribe((value) => {console.log("its data get from service main", value,this.bigDataInit) ;  })
        console.log("its data get from service main",this.bigDataInit)}
       // this.bigDataService.updateSharedData(this.bigDataInit);
       
